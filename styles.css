@@ -1,0 +1,71 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #212121;
+}
+
+h1 {
+    text-align: center;
+    color: #AFAFAF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    border-bottom: 1px solid #2C2C2C;
+    padding-bottom: 20px;
+
+}
+
+.divcontainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.divscoreboard {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #171717;
+    padding: 45px;
+    border-radius: 5px;
+    color: #898A8B;
+    border: 1px solid #3A3A3A;
+    margin-bottom: 20px;
+}
+
+.divbuttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #212121;
+    color: #B4B4B4;
+    border: 1px solid #3A3A3A;
+    border-radius: 50px;
+    font-size: 16px;
+    cursor: pointer;
+
+}
+
+button:hover {
+    background-color: #2F2F2F;
+}
+
+/* Styling for .player and .computer */
+.label {
+    color: #DF2B4A;
+}
+
+.score {
+    color: #00A67D;
+}
+
+.bracket {
+    color: #ffff;
+}

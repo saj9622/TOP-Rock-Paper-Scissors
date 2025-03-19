@@ -1,80 +1,98 @@
-
 // COMPUTER CHOICE
 function getComputerChoice() {
-    // ARRAY & MATH.RANDOM METHOD VVVV
-    // const choices = ['rock', 'paper', 'scissors'];
-    // const randomNumber = Math.floor(Math.random() * 3);
-    // return choices[randomNumber];
-
-    // MATH RANDOM METHOD VVVV
-    const randomNumber = Math.floor(Math.random() * 3); // 0, 1, 2
-    if (randomNumber === 0) return 'rock'; // 0
-    if (randomNumber === 1) return 'paper'; // 1
-    return 'scissors'; // 2
+    const choices = ['rock', 'paper', 'scissors'];
+    return choices[Math.floor(Math.random() * 3)];
 }
 
-// HUMAN CHOICES
-function getHumanChoice() {
-    let humanChoice; //
-    while (true) { // INFINITE LOOP
-        humanChoice = prompt('Enter your choice: rock, paper, or scissors').toLowerCase(); // PROMPT
-        if (['rock', 'paper', 'scissors'].includes(humanChoice)) { // CHECK IF VALID CHOICE
-            return humanChoice; // RETURN CHOICE IF VALID
-        }
-        alert('Invalid choice! Please enter rock, paper, or scissors.'); // ALERT IF INVALID
-    }
-}
+// PLAY ROUND FUNCTION
+function playRound(humanChoice) {
+    const computerChoice = getComputerChoice();
+    let result;
 
-// PLAY ROUND
-function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
-        return 'tie'; // RETURN TIE IF CHOICES ARE THE SAME
-    }
-    
-    if ( // WINNING CONDITIONS
+        result = "// it's a tie!";
+    } else if (
         (humanChoice === 'rock' && computerChoice === 'scissors') ||
         (humanChoice === 'paper' && computerChoice === 'rock') ||
         (humanChoice === 'scissors' && computerChoice === 'paper')
     ) {
-        return 'human'; // RETURN HUMAN IF HUMAN WINS
-    }
-    return 'computer'; // RETURN COMPUTER IF COMPUTER WINS
-}
-
-// PLAY GAME
-function playGame() {
-    let humanScore = 0; // HUMAN SCORE
-    let computerScore = 0; // COMPUTER SCORE
-
-    // PLAY 5 ROUNDS
-    for (let i = 0; i < 5; i++) { // LOOP 5 TIMES
-
-        // CALL FUNCTIONS
-        const humanSelection = getHumanChoice();
-        const computerSelection = getComputerChoice();
-        const result = playRound(humanSelection, computerSelection);
-
-        // SCORES
-        if (result === 'human') {
-            humanScore++; // INCREMENT HUMAN SCORE
-            console.log(`You win this round! ${humanSelection} beats ${computerSelection}`);
-        } else if (result === 'computer') {
-            computerScore++; // INCREMENT COMPUTER SCORE
-            console.log(`You lose this round! ${computerSelection} beats ${humanSelection}`);
-        } else {
-            console.log(`It's a tie!`); // TIE
-        }
-    }
-
-    // FINAL SCORES
-    if (humanScore > computerScore) { // COMPARE SCORES
-        console.log(`You win the game! Your score: ${humanScore}, Computer score: ${computerScore}`); // WIN
-    } else if (humanScore < computerScore) {
-        console.log(`You lose the game! Your score: ${humanScore}, Computer score: ${computerScore}`); // LOSE
+        result = `// you win! ${humanChoice} beats ${computerChoice}`;
+        humanScore++;
     } else {
-        console.log(`It's a tie! Final score: ${humanScore}-${computerScore}`); // TIE
+        result = `// you lose! ${computerChoice} beats ${humanChoice}`;
+        computerScore++;
+    }
+
+    updateScoreboard(result);
+    checkWinner();
+}
+
+// UPDATE SCOREBOARD
+function updateScoreboard(result) {
+    document.getElementById('result').textContent = result;
+    const scoreElement = document.getElementById('score');
+
+    // CLEAR EXISTING CONTENT
+    scoreElement.innerHTML = "";
+
+    const fragment = document.createDocumentFragment();
+
+    // FUNCTION TO CREATE SPAN ELEMENT
+    function createSpan(className, text) {
+        const span = document.createElement("span");
+        span.className = className;
+        span.textContent = text;
+        return span;
+    }
+
+    // CREATE SPAN ELEMENTS
+    const elements = [
+        createSpan("label", ".player "),
+        createSpan("bracket", "{ "),
+        createSpan("score", humanScore),
+        createSpan("bracket", " }"),
+        document.createTextNode(" - "), // Plain text separator
+        createSpan("label", ".computer "),
+        createSpan("bracket", "{ "),
+        createSpan("score", computerScore),
+        createSpan("bracket", " }")
+    ];
+
+    // APPEND SPAN ELEMENTS
+    elements.forEach(el => fragment.appendChild(el));
+
+    // APPEND FRAGMENT
+    scoreElement.appendChild(fragment);
+}
+
+// CHECK FOR WINNER
+function checkWinner() {
+    if (humanScore === 5) {
+        document.getElementById('result').textContent = "// you won the game!";
+        disableButtons();
+    } else if (computerScore === 5) {
+        document.getElementById('result').textContent = "// computer won the game!";
+        disableButtons();
     }
 }
 
-// START THE GAME
-playGame();
+// DISABLE BUTTONS
+function disableButtons() {
+    buttons.forEach(button => button.disabled = true);
+}
+
+// INITIALIZE UI ELEMENTS
+let humanScore = 0;
+let computerScore = 0;
+
+// SELECT EXISTING BUTTONS
+const buttons = document.querySelectorAll('.btn');
+const choices = ['rock', 'paper', 'scissors'];
+
+buttons.forEach((button, index) => {
+    button.textContent = choices[index];
+    button.addEventListener('click', () => playRound(choices[index]));
+});
+
+// INITIAL SCORE DISPLAY
+updateScoreboard("// score");

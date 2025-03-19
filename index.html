@@ -1,16 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
   <script src="javascript.js" defer></script>
   <title>Rock, Paper, Scissors</title>
 </head>
+
 <body>
-  <h1>Rock, Paper, Scissors</h1>
-  <div>Open Developers Tool > Console</div>
+  <div class="divcontainer">
+    <h1>rock, paper, scissors</h1>
+
+    <div class="divscoreboard">
+      <div id="result">// score</div>
+      <div id="score"><span class="plr">.player</span>{ 0 } - <span class="com">.computer</span> { 0 }</div>
+    </div>
+
+    <div class="divbuttons">
+      <button type="button" class="btn">1</button>
+      <button type="button" class="btn">2</button>
+      <button type="button" class="btn">3</button>
+    </div>
+
+  </div>
+
   <script>
     console.log('Play Rock, Paper, Scissors!');
   </script>
+
 </body>
+
 </html>
