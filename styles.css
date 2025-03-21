@@ -43,7 +43,6 @@ h1 {
 }
 
 button {
-    padding: 10px 20px;
     background-color: #212121;
     color: #B4B4B4;
     border: 1px solid #3A3A3A;
@@ -55,17 +54,4 @@ button {
 
 button:hover {
     background-color: #2F2F2F;
-}
-
-/* Styling for .player and .computer */
-.label {
-    color: #DF2B4A;
-}
-
-.score {
-    color: #00A67D;
-}
-
-.bracket {
-    color: #ffff;
 }
